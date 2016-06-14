@@ -6,12 +6,12 @@ const request = require('superagent');
 class PieChart extends Component {
 
   componentDidMount() {
-    const {name, title} = this.props;
+    const {percent, file, title} = this.props;
     request
-      .get(this.props.file)
+      .get(file)
       .end(function(err, res) {
         const parse = baby.parse(res.text);
-        let chart = echarts.init(document.getElementById(name));
+        let chart = echarts.init(document.getElementById(title));
         let data = [];
         for (let i = 0; i < parse.data[0].length; i++) {
           data.push({
@@ -21,19 +21,18 @@ class PieChart extends Component {
         }
         const chartOptions = {
           title : {
-            text: title,
-            x: 'center'
+            text: title
           },
           series : [
             {
               type: 'pie',
-              radius : '70%',
+              radius : percent + '%',
               label: {
                 normal: {
                   show: true,
-                  formatter: "{b} ({d}%)",
+                  formatter: "{b} ({c}, {d}%)",
                   textStyle: {
-                    fontSize: 20
+                    fontSize: 15
                   }
                 }
               },
@@ -53,18 +52,22 @@ class PieChart extends Component {
   }
 
   render() {
-    const { name } = this.props; // eslint-disable-line no-use-before-define
+    const { title } = this.props; // eslint-disable-line no-use-before-define
     return (
-      <div id={name} style={{width: '80%', height: '600px'}}>
+      <div id={title} style={{width: '80%', height: '600px'}}>
       </div>
     );
   }
 }
 
+PieChart.defaultProps = {
+  percent: 80
+};
+
 PieChart.propTypes = {
-  name: PropTypes.string.isRequired,
   file: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  percent: PropTypes.number
 };
 
 export default PieChart;
