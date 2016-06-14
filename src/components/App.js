@@ -4,11 +4,13 @@ import { Link, IndexLink } from 'react-router';
 const App = (props) => {
   return (
     <div>
-      <IndexLink to="/">Home</IndexLink>
+      <IndexLink to="/">首页</IndexLink>
       {' | '}
-      <Link to="/user">User</Link>
+      <Link to="/table">表格</Link>
       {' | '}
-      <Link to="/about">About</Link>
+      <Link to="/chart">图表</Link>
+      {' | '}
+      <Link to="/about">关于</Link>
       <br/>
       {props.children}
     </div>

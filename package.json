@@ -74,7 +74,8 @@
     "webpack-hot-middleware": "2.10.0",
     "echarts": "3.1.10",
     "babyparse": "0.4.6",
-    "superagent": "2.0.0-alpha.3"
+    "superagent": "2.0.0-alpha.3",
+    "bootstrap": "4.0.0-alpha.2"
   },
   "keywords:": [
     "react",
