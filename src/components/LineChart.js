@@ -6,7 +6,7 @@ const request = require('superagent');
 class LineChart extends Component {
 
   componentDidMount() {
-    const { inverted, labelRotate, labelInterval, file, title } = this.props;
+    const { columns, inverted, labelRotate, labelInterval, file, title } = this.props;
     request
       .get(file)
       .end(function(err, res) {
@@ -36,6 +36,9 @@ class LineChart extends Component {
             x.push(parse.data[i][0]);
           }
           for (let i = 1; i < parse.data[0].length; i++) {
+            if (columns.indexOf(i) == -1) {
+              continue;
+            }
             legend.push(parse.data[0][i]);
             let data = [];
             for (let j = 1; j < parse.data.length - 1; j++) {
@@ -94,7 +97,8 @@ class LineChart extends Component {
 LineChart.defaultProps = {
   labelRotate: 0,
   labelInterval: 0,
-  inverted: false
+  inverted: false,
+  columns: []
 };
 
 LineChart.propTypes = {
@@ -102,7 +106,8 @@ LineChart.propTypes = {
   title: PropTypes.string.isRequired,
   labelRotate: PropTypes.number,
   labelInterval: PropTypes.number,
-  inverted: PropTypes.bool
+  inverted: PropTypes.bool,
+  columns: PropTypes.array
 };
 
 export default LineChart;
